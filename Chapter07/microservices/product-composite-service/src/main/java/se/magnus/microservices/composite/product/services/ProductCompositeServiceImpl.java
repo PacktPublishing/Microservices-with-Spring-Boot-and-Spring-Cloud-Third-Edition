@@ -37,7 +37,7 @@ public class ProductCompositeServiceImpl implements ProductCompositeService {
 
       List<Mono> monoList = new ArrayList<>();
 
-      LOG.debug("createCompositeProduct: creates a new composite entity for productId: {}", body.getProductId());
+      LOG.info("Will create a new composite entity for product.id: {}", body.getProductId());
 
       Product product = new Product(body.getProductId(), body.getName(), body.getWeight(), null);
       monoList.add(integration.createProduct(product));
@@ -86,7 +86,7 @@ public class ProductCompositeServiceImpl implements ProductCompositeService {
 
     try {
 
-      LOG.debug("deleteCompositeProduct: Deletes a product aggregate for productId: {}", productId);
+      LOG.info("Will delete a product aggregate for product.id: {}", productId);
 
       return Mono.zip(
         r -> "",
