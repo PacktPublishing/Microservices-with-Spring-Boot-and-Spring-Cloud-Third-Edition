@@ -1,0 +1,10 @@
+server.error.include-message: always
+
+spring.cloud.stream.defaultBinder: rabbit
+
+logging:
+  level:
+    root: INFO
+    se.magnus: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
