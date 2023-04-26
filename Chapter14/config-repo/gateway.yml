@@ -1,0 +1,100 @@
+server.port: 8443
+
+server.ssl:
+  key-store-type: PKCS12
+  key-store: classpath:keystore/edge.p12
+  key-store-password: '{cipher}d59274473b196cebe288f849c442eba34aa497d14a13e10a23f824489e1c23ec'
+  key-alias: localhost
+
+spring.cloud.gateway.routes:
+
+- id: product-composite
+  uri: lb://product-composite
+  predicates:
+  - Path=/product-composite/**
+
+- id: oauth2-server
+  uri: lb://auth-server
+  predicates:
+  - Path=/oauth2/**
+
+- id: oauth2-login
+  uri: lb://auth-server
+  predicates:
+  - Path=/login/**
+
+- id: oauth2-error
+  uri: lb://auth-server
+  predicates:
+  - Path=/error/**
+
+- id: product-composite-swagger-ui
+  uri: lb://product-composite
+  predicates:
+  - Path=/openapi/**
+
+- id: product-composite-swagger-ui-webjars
+  uri: lb://product-composite
+  predicates:
+  - Path=/webjars/**
+
+- id: eureka-api
+  uri: http://${app.eureka-server}:8761
+  predicates:
+  - Path=/eureka/api/{segment}
+  filters:
+  - SetPath=/eureka/{segment}
+
+- id: eureka-web-start
+  uri: http://${app.eureka-server}:8761
+  predicates:
+  - Path=/eureka/web
+  filters:
+  - SetPath=/
+
+- id: eureka-web-other
+  uri: http://${app.eureka-server}:8761
+  predicates:
+  - Path=/eureka/**
+
+- id: config-server
+  uri: ${spring.cloud.config.uri}
+  predicates:
+  - Path=/config/**
+  filters:
+  - RewritePath=/config/(?<segment>.*), /$\{segment}
+
+- id: host_route_200
+  uri: http://httpstat.us
+  predicates:
+  - Host=i.feel.lucky:8080
+  - Path=/headerrouting/**
+  filters:
+  - SetPath=/200
+
+- id: host_route_418
+  uri: http://httpstat.us
+  predicates:
+  - Host=im.a.teapot:8080
+  - Path=/headerrouting/**
+  filters:
+  - SetPath=/418
+
+- id: host_route_501
+  uri: http://httpstat.us
+  predicates:
+  - Path=/headerrouting/**
+  filters:
+  - SetPath=/501
+
+spring.security.oauth2.resourceserver.jwt.issuer-uri: http://${app.auth-server}:9999
+
+management.endpoint.gateway.enabled: true
+
+logging:
+  level:
+    root: INFO
+    org.springframework.cloud.gateway.route.RouteDefinitionRouteLocator: INFO
+    org.springframework.cloud.gateway: TRACE
+    org.springframework.web.server.adapter.HttpWebHandlerAdapter: TRACE
+
