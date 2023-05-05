@@ -1,0 +1,11 @@
+fullnameOverride: review
+
+image:
+  name: review-service
+
+env:
+  SPRING_PROFILES_ACTIVE: "docker"
+
+livenessProbe_enabled: true
+
+readinessProbe_enabled: true

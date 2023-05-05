@@ -1,0 +1,29 @@
+fullnameOverride: gateway
+
+image:
+  name: gateway
+
+ports:
+  - containerPort: 8443
+
+env:
+  SPRING_PROFILES_ACTIVE: "docker"
+
+livenessProbe_enabled: true
+livenessProbe:
+  httpGet:
+    scheme: HTTPS
+    port: 8443
+readinessProbe_enabled: true
+readinessProbe:
+  httpGet:
+    scheme: HTTPS
+    port: 8443
+
+service:
+  type: NodePort
+  ports:
+  - port: 443
+    targetPort: 8443
+    nodePort: 30443
+

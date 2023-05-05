@@ -1,0 +1,46 @@
+secrets:
+
+  config-server-secrets:
+    ENCRYPT_KEY: my-very-secure-encrypt-key
+    SPRING_SECURITY_USER_NAME: dev-usr
+    SPRING_SECURITY_USER_PASSWORD: dev-pwd
+
+  config-client-credentials:
+    CONFIG_SERVER_USR: dev-usr
+    CONFIG_SERVER_PWD: dev-pwd
+
+mysql:
+  env:
+    MYSQL_ROOT_PASSWORD: rootpwd
+    MYSQL_DATABASE: review-db
+    MYSQL_USER: user
+    MYSQL_PASSWORD: pwd
+
+config-server:
+  envFromSecretRefs:
+    - config-server-secrets
+
+gateway:
+  envFromSecretRefs:
+    - config-client-credentials
+
+auth-server:
+  envFromSecretRefs:
+    - config-client-credentials
+
+product:
+  envFromSecretRefs:
+    - config-client-credentials
+
+recommendation:
+  envFromSecretRefs:
+    - config-client-credentials
+
+review:
+  envFromSecretRefs:
+    - config-client-credentials
+
+product-composite:
+  envFromSecretRefs:
+    - config-client-credentials
+

@@ -1,0 +1,43 @@
+apiVersion: v2
+appVersion: "1.0"
+description: A Helm chart for HANDS-ON MICROSERVICES WITH SPRING BOOT AND SPRING CLOUD running in a QA or Production environment
+name: prod-env
+version: 1.0.0
+
+dependencies:
+
+  - name: common
+    version: 1.0.0
+    repository: file://../../common
+
+  - name: config-server
+    version: 1.0.0
+    repository: file://../../components/config-server
+
+  - name: gateway
+    version: 1.0.0
+    repository: file://../../components/gateway
+
+  - name: auth-server
+    version: 1.0.0
+    repository: file://../../components/auth-server
+
+  - name: product
+    version: 1.0.0
+    repository: file://../../components/product
+
+  - name: recommendation
+    version: 1.0.0
+    repository: file://../../components/recommendation
+
+  - name: review
+    version: 1.0.0
+    repository: file://../../components/review
+
+  - name: product-composite
+    version: 1.0.0
+    repository: file://../../components/product-composite
+
+  - name: zipkin-server
+    version: 1.0.0
+    repository: file://../../components/zipkin-server

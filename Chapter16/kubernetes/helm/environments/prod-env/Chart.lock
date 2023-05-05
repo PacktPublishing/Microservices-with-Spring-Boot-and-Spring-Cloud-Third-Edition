@@ -1,0 +1,30 @@
+dependencies:
+- name: common
+  repository: file://../../common
+  version: 1.0.0
+- name: config-server
+  repository: file://../../components/config-server
+  version: 1.0.0
+- name: gateway
+  repository: file://../../components/gateway
+  version: 1.0.0
+- name: auth-server
+  repository: file://../../components/auth-server
+  version: 1.0.0
+- name: product
+  repository: file://../../components/product
+  version: 1.0.0
+- name: recommendation
+  repository: file://../../components/recommendation
+  version: 1.0.0
+- name: review
+  repository: file://../../components/review
+  version: 1.0.0
+- name: product-composite
+  repository: file://../../components/product-composite
+  version: 1.0.0
+- name: zipkin-server
+  repository: file://../../components/zipkin-server
+  version: 1.0.0
+digest: sha256:ab7a7952dfed4259c4a6c1e54f210c9b4a4374b8bde1b501b9013f0bad1818af
+generated: "2021-04-29T13:45:33.879089+02:00"

@@ -1,0 +1,111 @@
+secrets:
+
+  config-server-secrets:
+    ENCRYPT_KEY: my-very-secure-encrypt-key
+    SPRING_SECURITY_USER_NAME: prod-usr
+    SPRING_SECURITY_USER_PASSWORD: prod-pwd
+
+  config-client-credentials:
+    CONFIG_SERVER_USR: prod-usr
+    CONFIG_SERVER_PWD: prod-pwd
+
+config-server:
+  image:
+    tag: v1
+  env:
+    LOGGING_LEVEL_ROOT: WARN
+    MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: "health,info"
+  envFromSecretRefs:
+    - config-server-secrets
+  resources:
+    requests:
+      memory: 200Mi
+    limits:
+      memory: 400Mi
+
+gateway:
+  image:
+    tag: v1
+  env:
+    SPRING_PROFILES_ACTIVE: "docker,prod"
+  envFromSecretRefs:
+    - config-client-credentials
+  resources:
+    requests:
+      memory: 200Mi
+    limits:
+      memory: 400Mi
+
+auth-server:
+  image:
+    tag: v1
+  env:
+    SPRING_PROFILES_ACTIVE: "docker,prod"
+  envFromSecretRefs:
+    - config-client-credentials
+  resources:
+    requests:
+      memory: 200Mi
+    limits:
+      memory: 400Mi
+
+product:
+  image:
+    tag: v1
+  env:
+    SPRING_PROFILES_ACTIVE: "docker,prod"
+  envFromSecretRefs:
+    - config-client-credentials
+  resources:
+    requests:
+      memory: 200Mi
+    limits:
+      memory: 400Mi
+
+recommendation:
+  image:
+    tag: v1
+  env:
+    SPRING_PROFILES_ACTIVE: "docker,prod"
+  envFromSecretRefs:
+    - config-client-credentials
+  resources:
+    requests:
+      memory: 200Mi
+    limits:
+      memory: 400Mi
+
+review:
+  image:
+    tag: v1
+  env:
+    SPRING_PROFILES_ACTIVE: "docker,prod"
+  envFromSecretRefs:
+    - config-client-credentials
+  resources:
+    requests:
+      memory: 200Mi
+    limits:
+      memory: 400Mi
+
+product-composite:
+  image:
+    tag: v1
+  env:
+    SPRING_PROFILES_ACTIVE: "docker,prod"
+  envFromSecretRefs:
+    - config-client-credentials
+  resources:
+    requests:
+      memory: 200Mi
+    limits:
+      memory: 400Mi
+
+zipkin-server:
+  env:
+    LOGGING_LEVEL_ROOT: WARN
+  resources:
+    requests:
+      memory: 300Mi
+    limits:
+      memory: 600Mi

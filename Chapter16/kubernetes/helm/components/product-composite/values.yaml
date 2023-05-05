@@ -1,0 +1,12 @@
+fullnameOverride: product-composite
+
+image:
+  name: product-composite-service
+
+env:
+  SPRING_PROFILES_ACTIVE: "docker"
+
+livenessProbe_enabled: true
+
+readinessProbe_enabled: true
+
