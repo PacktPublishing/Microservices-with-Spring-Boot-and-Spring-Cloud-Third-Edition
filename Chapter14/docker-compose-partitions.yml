@@ -177,7 +177,7 @@ services:
     volumes:
       - $PWD/config-repo:/config-repo
 
-  zipkin:
+  zipkin-server:
     image: openzipkin/zipkin:2.24.0
     restart: always
     mem_limit: 1024m
