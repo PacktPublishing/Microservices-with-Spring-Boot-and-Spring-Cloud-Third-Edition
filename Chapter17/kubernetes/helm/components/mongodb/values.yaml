@@ -1,0 +1,14 @@
+fullnameOverride: mongodb
+
+image:
+  repository: registry.hub.docker.com/library
+  name: mongo
+  tag: 6.0.4
+  pullPolicy: IfNotPresent
+
+ports:
+  - containerPort: 27017
+
+service:
+  ports:
+    - port: 27017

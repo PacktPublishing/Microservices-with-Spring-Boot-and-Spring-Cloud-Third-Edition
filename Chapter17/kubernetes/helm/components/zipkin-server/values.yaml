@@ -1,0 +1,46 @@
+fullnameOverride: zipkin-server
+
+image:
+  repository: registry.hub.docker.com/openzipkin
+  name: zipkin
+  tag: 2.24.0
+  pullPolicy: IfNotPresent
+
+env:
+  STORAGE_TYPE: mem
+
+ports:
+  - containerPort: 9411
+
+livenessProbe_enabled: true
+livenessProbe:
+  httpGet:
+    scheme: HTTP
+    path: /actuator/info
+    port: 9411
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  timeoutSeconds: 2
+  failureThreshold: 20
+  successThreshold: 1
+
+readinessProbe_enabled: true
+readinessProbe:
+  httpGet:
+    scheme: HTTP
+    path: /actuator/health
+    port: 9411
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  timeoutSeconds: 2
+  failureThreshold: 3
+  successThreshold: 1
+
+resources:
+  limits:
+    memory: 512Mi
+
+service:
+  ports:
+    - port: 9411
+
