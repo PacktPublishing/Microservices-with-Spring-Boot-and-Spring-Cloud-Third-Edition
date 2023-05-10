@@ -1,0 +1,70 @@
+secrets:
+
+  rabbitmq-server-credentials:
+    RABBITMQ_DEFAULT_USER: rabbit-user-dev
+    RABBITMQ_DEFAULT_PASS: rabbit-pwd-dev
+
+  rabbitmq-credentials:
+    SPRING_RABBITMQ_USERNAME: rabbit-user-dev
+    SPRING_RABBITMQ_PASSWORD: rabbit-pwd-dev
+
+  mongodb-server-credentials:
+    MONGO_INITDB_ROOT_USERNAME: mongodb-user-dev
+    MONGO_INITDB_ROOT_PASSWORD: mongodb-pwd-dev
+
+  mongodb-credentials:
+    SPRING_DATA_MONGODB_AUTHENTICATION_DATABASE: admin
+    SPRING_DATA_MONGODB_USERNAME: mongodb-user-dev
+    SPRING_DATA_MONGODB_PASSWORD: mongodb-pwd-dev
+
+  mysql-server-credentials:
+    MYSQL_ROOT_PASSWORD: rootpwd
+    MYSQL_DATABASE: review-db
+    MYSQL_USER: mysql-user-dev
+    MYSQL_PASSWORD: mysql-pwd-dev
+
+  mysql-credentials:
+    SPRING_DATASOURCE_USERNAME: mysql-user-dev
+    SPRING_DATASOURCE_PASSWORD: mysql-pwd-dev
+
+rabbitmq:
+  envFromSecretRefs:
+    - rabbitmq-server-credentials
+
+mongodb:
+  envFromSecretRefs:
+    - mongodb-server-credentials
+
+mysql:
+  envFromSecretRefs:
+    - mysql-server-credentials
+
+auth-server:
+  envFromSecretRefs:
+    - rabbitmq-credentials
+
+product:
+  envFromSecretRefs:
+    - rabbitmq-credentials
+    - mongodb-credentials
+
+recommendation:
+  envFromSecretRefs:
+    - rabbitmq-credentials
+    - mongodb-credentials
+
+review:
+  envFromSecretRefs:
+    - rabbitmq-credentials
+    - mysql-credentials
+
+product-composite:
+  envFromSecretRefs:
+    - rabbitmq-credentials
+
+destinationRules:
+  - name: product-composite
+  - name: auth-server
+  - name: product
+  - name: recommendation
+  - name: review

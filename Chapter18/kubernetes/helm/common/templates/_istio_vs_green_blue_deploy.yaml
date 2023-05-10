@@ -1,0 +1,30 @@
+{{- define "common.istio_vs_green_blue_deploy" -}}
+{{- range $name := .Values.virtualServices }}
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: {{ $name }}
+spec:
+  hosts:
+  - {{ $name }}
+  http:
+  - match:
+    - headers:
+        X-group:
+          exact: test
+    route:
+    - destination:
+        host: {{ $name }}
+        subset: new
+  - route:
+    - destination:
+        host: {{ $name }}
+        subset: old
+      weight: 100
+    - destination:
+        host: {{ $name }}
+        subset: new
+      weight: 0
+---
+{{- end -}}
+{{- end -}}
