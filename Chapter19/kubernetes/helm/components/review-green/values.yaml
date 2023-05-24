@@ -1,0 +1,18 @@
+nameOverride: review
+fullnameOverride: review-green
+
+image:
+  name: review-service
+
+env:
+  SPRING_PROFILES_ACTIVE: "docker"
+  SPRING_CONFIG_LOCATION: file:/config-repo/application.yml,file:/config-repo/review.yml
+
+livenessProbe_enabled: true
+
+readinessProbe_enabled: true
+
+configmap:
+  enabled: true
+  volumeMounts:
+    mountPath: /config-repo

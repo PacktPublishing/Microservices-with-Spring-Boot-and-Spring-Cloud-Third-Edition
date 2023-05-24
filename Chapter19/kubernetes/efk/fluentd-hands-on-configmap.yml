@@ -1,0 +1,92 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fluentd-hands-on-config
+  namespace: kube-system
+data:
+  fluentd-hands-on.conf: |
+
+    <match kubernetes.**istio**>
+      @type rewrite_tag_filter
+      <rule>
+        key log
+        pattern ^(.*)$
+        tag istio.${tag}
+      </rule>
+    </match>
+
+    <match kubernetes.**hands-on**>
+      @type rewrite_tag_filter
+      <rule>
+        key log
+        pattern ^(.*)$
+        tag spring-boot.${tag}
+      </rule>
+    </match>
+
+    <match spring-boot.**>
+      @type rewrite_tag_filter
+      <rule>
+        key log
+        pattern /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}([-+]\d{2}:\d{2}|Z).*/
+        tag parse.${tag}
+      </rule>
+      # Get rid of Reactor debug info:
+      #
+      #   Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException:
+      # Error has been observed at the following site(s):
+      #   *__checkpoint ⇢ Handler se.magnus.microservices.core.product.services.ProductServiceImpl#getProduct(HttpHeaders, int, int, int) [DispatcherHandler]
+      #   *__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+      #   *__checkpoint ⇢ HTTP GET "/product/1?faultPercent=100" [ExceptionHandlingWebHandler]
+      # Original Stack Trace:
+      <rule>
+        key log
+        pattern /^\s+Suppressed:.*$/
+        tag skip.${tag}
+      </rule>
+      <rule>
+        key log
+        pattern /^Error has been observed at the following site.*/
+        tag skip.${tag}
+      </rule>
+      <rule>
+        key log
+        pattern /^\s+\*__checkpoint.*/
+        tag skip.${tag}
+      </rule>
+      <rule>
+        key log
+        pattern /^Original Stack Trace:.*/
+        tag skip.${tag}
+      </rule>
+
+      <rule>
+        key log
+        pattern /^.*/
+        tag check.exception.${tag}
+      </rule>
+    </match>
+
+    <match skip.spring-boot.**>
+      @type null
+    </match>
+
+    <match check.exception.spring-boot.**>
+      @type detect_exceptions
+      languages java
+      remove_tag_prefix check
+      message log
+      multiline_flush_interval 5
+    </match>
+
+    <filter parse.spring-boot.**>
+      @type parser
+      key_name log
+      time_key time
+      time_format %Y-%m-%dT%H:%M:%S.%N
+      reserve_data true
+      # Sample log messages:
+      # 2021-03-27T13:07:28.642Z DEBUG [product-composite,395ab9670bc9685096dddd66836d02e1,f32eb266bd1ff9a3] 1 --- [or-http-epoll-1] s.m.u.h.GlobalControllerExceptionHandler : Returning HTTP status: 404 NOT_FOUND for path: /product-composite/13, message: Product Id: 13 not found
+      # 2021-03-27T13:07:28.642+01:00 DEBUG [product-composite,395ab9670bc9685096dddd66836d02e1,f32eb266bd1ff9a3] 1 --- [or-http-epoll-1] s.m.u.h.GlobalControllerExceptionHandler : Returning HTTP status: 404 NOT_FOUND for path: /product-composite/13, message: Product Id: 13 not found
+      format /^(?<time>\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}([-+]\d{2}:\d{2}|Z))\s+(?<spring.level>[^\s]+)\s+(\[(?<spring.service>[^,]*),(?<spring.trace>[^,]*),(?<spring.span>[^\]]*)]*\])\s+(?<spring.pid>\d+)\s+---\s+\[\s*(?<spring.thread>[^\]]+)\]\s+(?<spring.class>[^\s]+)\s*:\s+(?<log>.*)$/
+    </filter>

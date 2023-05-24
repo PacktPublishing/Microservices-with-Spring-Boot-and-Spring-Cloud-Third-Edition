@@ -1,0 +1,46 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: kibana-gateway
+  namespace: logging
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - hosts:
+    - "kibana.minikube.me"
+    port:
+      number: 443
+      name: https-tracing
+      protocol: HTTPS
+    tls:
+      mode: SIMPLE
+      credentialName: hands-on-certificate
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: kibana-vs
+  namespace: logging
+spec:
+  hosts:
+  - "kibana.minikube.me"
+  gateways:
+  - kibana-gateway
+  http:
+  - route:
+    - destination:
+        host: kibana
+        port:
+          number: 5601
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: kibana
+  namespace: logging
+spec:
+  host: kibana
+  trafficPolicy:
+    tls:
+      mode: DISABLE

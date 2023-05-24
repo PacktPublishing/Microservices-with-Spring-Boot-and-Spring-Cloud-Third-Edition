@@ -1,0 +1,55 @@
+app:
+  auth-server: localhost
+
+spring.rabbitmq:
+  host: 127.0.0.1
+  port: 5672
+
+spring.cloud.stream.kafka.binder:
+  brokers: 127.0.0.1
+  defaultBrokerPort: 9092
+
+spring.cloud.stream.defaultBinder: rabbit
+
+# WARNING: Exposing all management endpoints over http should only be used during development, must be locked down in production!
+management.server.port: 4004
+management.endpoint.health.show-details: "ALWAYS"
+management.endpoints.web.exposure.include: "*"
+management.endpoint.health.probes.enabled: true
+management.endpoint.health.group.readiness.include: readinessState, rabbit, db, mongo
+management.health.rabbit.enabled: true
+management.health.kafka.enabled: false
+
+management.zipkin.tracing.endpoint: http://jaeger-collector.istio-system:9411/api/v2/spans
+management.tracing.sampling.probability: 1.0
+logging.pattern.level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
+
+server.shutdown: graceful
+spring.lifecycle.timeout-per-shutdown-phase: 10s
+
+---
+spring.config.activate.on-profile: docker
+
+spring.rabbitmq.host: rabbitmq
+
+spring.cloud.stream.kafka.binder.brokers: kafka
+
+app:
+  auth-server: auth-server
+
+---
+spring.config.activate.on-profile: kafka
+
+spring.cloud.stream.defaultBinder: kafka
+spring.kafka.bootstrap-servers: kafka:9092
+spring.cloud.stream.kafka.binder.replication-factor: 1
+
+management.health.rabbit.enabled: false
+management.health.kafka.enabled: true
+
+---
+spring.config.activate.on-profile: prod
+spring.rabbitmq.host: 172.17.0.1
+
+# Only allow management endpoints over http in production for info, health and circuitbreakerevents
+management.endpoints.web.exposure.include: health,info,circuitbreakerevents
