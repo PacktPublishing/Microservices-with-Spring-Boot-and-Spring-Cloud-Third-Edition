@@ -100,7 +100,7 @@ public class ProductServiceImpl implements ProductService {
     if (faultPercent < randomThreshold) {
       LOG.debug("We got lucky, no error occurred, {} < {}", faultPercent, randomThreshold);
     } else {
-      LOG.debug("Bad luck, an error occurred, {} >= {}", faultPercent, randomThreshold);
+      LOG.info("Bad luck, an error occurred, {} >= {}", faultPercent, randomThreshold);
       throw new RuntimeException("Something went wrong...");
     }
 
