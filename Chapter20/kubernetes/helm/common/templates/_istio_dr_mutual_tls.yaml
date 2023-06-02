@@ -1,0 +1,20 @@
+{{- define "common.istio_dr_mutual_tls" -}}
+{{- range $idx, $dr := .Values.destinationRules }}
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: {{ $dr.name }}
+spec:
+  host: {{ $dr.name }}
+{{- if $dr.subsets }}
+{{- with $dr.subsets }}
+  subsets:
+{{ toYaml . | indent 2 }}
+{{- end }}
+{{- end }}
+  trafficPolicy:
+    tls:
+      mode: ISTIO_MUTUAL
+---
+{{- end -}}
+{{- end -}}

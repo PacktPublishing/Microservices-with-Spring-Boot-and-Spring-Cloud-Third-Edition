@@ -1,0 +1,22 @@
+server.port: 9999
+spring.application.name: auth-server
+server.forward-headers-strategy: framework
+
+# Since the auth-server does not use any of rabbit, db, mongo as defined in application.yml,
+# we need to reset the readiness group for the auth-server.
+# Otherwise will there be no response on the readiness endpoint, instead returning 404.
+management.endpoint.health.group.readiness.include:
+
+logging:
+  level:
+    root: INFO
+
+---
+spring.config.activate.on-profile: docker
+
+server.port: 80
+
+---
+spring.config.activate.on-profile: prod
+
+logging.level.root: WARN

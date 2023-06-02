@@ -1,0 +1,18 @@
+fullnameOverride: mongodb
+
+annotations:
+  sidecar.istio.io/inject: "false"
+
+image:
+  repository: registry.hub.docker.com/library
+  name: mongo
+  tag: 6.0.4
+  pullPolicy: IfNotPresent
+
+ports:
+  - containerPort: 27017
+
+service:
+  ports:
+    - name: mongo
+      port: 27017

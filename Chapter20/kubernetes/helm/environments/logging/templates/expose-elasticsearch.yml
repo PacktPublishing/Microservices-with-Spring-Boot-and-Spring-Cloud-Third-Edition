@@ -1,0 +1,46 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: elasticsearch-gateway
+  namespace: logging
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - hosts:
+    - "elasticsearch.minikube.me"
+    port:
+      number: 443
+      name: https-tracing
+      protocol: HTTPS
+    tls:
+      mode: SIMPLE
+      credentialName: hands-on-certificate
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: elasticsearch-vs
+  namespace: logging
+spec:
+  hosts:
+  - "elasticsearch.minikube.me"
+  gateways:
+  - elasticsearch-gateway
+  http:
+  - route:
+    - destination:
+        host: elasticsearch
+        port:
+          number: 9200
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: elasticsearch
+  namespace: logging
+spec:
+  host: elasticsearch
+  trafficPolicy:
+    tls:
+      mode: DISABLE

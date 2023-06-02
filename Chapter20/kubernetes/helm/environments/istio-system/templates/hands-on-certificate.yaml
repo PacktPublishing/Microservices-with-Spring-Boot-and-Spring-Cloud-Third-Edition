@@ -1,0 +1,37 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hands-on-certificate
+spec:
+  commonName: minikube.me
+  subject:
+    countries:
+    - my-country
+    localities:
+    - my-locality
+    organizationalUnits:
+    - my-ou
+    organizations:
+    - my-org
+    postalCodes:
+    - my-pc
+    provinces:
+    - my-province
+    serialNumber: my-sn
+    streetAddresses:
+    - my-address
+  dnsNames:
+  - minikube.me
+  - health.minikube.me
+  - dashboard.minikube.me
+  - kiali.minikube.me
+  - tracing.minikube.me
+  - prometheus.minikube.me
+  - grafana.minikube.me
+  - kibana.minikube.me
+  - elasticsearch.minikube.me
+  - mail.minikube.me
+  issuerRef:
+    name: ca-issuer
+  secretName: hands-on-certificate
+

@@ -1,0 +1,40 @@
+fullnameOverride: product-composite
+
+annotations:
+  prometheus.io/scrape: "true"
+  prometheus.io/port: "4004"
+  prometheus.io/scheme: http
+  prometheus.io/path: "/actuator/prometheus"
+
+image:
+  name: product-composite-service
+
+ports:
+  - name: http
+    containerPort: 80
+    protocol: TCP
+  - name: http-mgm
+    containerPort: 4004
+    protocol: TCP
+
+env:
+  SPRING_PROFILES_ACTIVE: "docker"
+  SPRING_CONFIG_LOCATION: file:/config-repo/application.yml,file:/config-repo/product-composite.yml
+
+livenessProbe_enabled: true
+
+readinessProbe_enabled: true
+
+configmap:
+  enabled: true
+  volumeMounts:
+    mountPath: /config-repo
+
+service:
+  ports:
+    - port: 80
+      name: http
+      targetPort: 80
+    - port: 4004
+      name: http-mgm
+      targetPort: 4004
