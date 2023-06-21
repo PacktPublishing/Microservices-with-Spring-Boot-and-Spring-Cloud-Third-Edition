@@ -1,0 +1,1 @@
+{{- template "common.istio_dr_mutual_tls" . -}}

@@ -1,0 +1,77 @@
+{{- define "common.deployment" -}}
+{{- $common := dict "Values" .Values.common -}} 
+{{- $noCommon := omit .Values "common" -}} 
+{{- $overrides := dict "Values" $noCommon -}} 
+{{- $noValues := omit . "Values" -}} 
+{{- with merge $noValues $overrides $common -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "common.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "common.name" . }}
+    helm.sh/chart: {{ include "common.chart" . }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "common.name" . }}
+  template:
+    metadata:
+{{- if .Values.annotations }}
+{{- with .Values.annotations }}
+      annotations:
+{{ toYaml . | indent 8 }}
+{{- end }}
+{{- end }}
+      labels:
+        app.kubernetes.io/name: {{ include "common.name" . }}
+        app: {{ include "common.name" . }}
+        version: {{ .Values.image.tag }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- with .Values.image.args }}
+          args:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- if .Values.env }}
+          env:
+          {{- range $key, $val := .Values.env }}
+          - name: {{ $key }}
+            value: {{ $val }}
+          {{- end }}
+          {{- end }}
+          {{- if .Values.envFromSecretRefs }}
+          envFrom:
+          {{- range .Values.envFromSecretRefs }}
+          - secretRef:
+              name: {{ . }}
+          {{- end }}
+          {{- end }}
+          {{- if .Values.livenessProbe_enabled }}
+          livenessProbe:
+{{ toYaml .Values.livenessProbe | indent 12 }}
+          {{- end }}
+          {{- if .Values.readinessProbe_enabled }}
+          readinessProbe:
+{{ toYaml .Values.readinessProbe | indent 12 }}
+          {{- end }}
+          ports:
+{{ toYaml .Values.ports | indent 12 }}
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+      {{- if .Values.configmap.enabled }}
+          volumeMounts:
+          - name: {{ include "common.fullname" . }}
+            mountPath: {{ .Values.configmap.volumeMounts.mountPath }}
+      volumes:
+        - name: {{ include "common.fullname" . }}
+          configMap:
+            name: {{ include "common.fullname" . }}
+      {{- end }}
+{{- end -}}
+{{- end -}}

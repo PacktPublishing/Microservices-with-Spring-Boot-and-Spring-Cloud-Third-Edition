@@ -1,0 +1,46 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: mail-gateway
+  namespace: istio-system
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - hosts:
+    - "mail.minikube.me"
+    port:
+      number: 443
+      name: https-mail
+      protocol: HTTPS
+    tls:
+      mode: SIMPLE
+      credentialName: hands-on-certificate
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: mail-vs
+  namespace: istio-system
+spec:
+  hosts:
+  - "mail.minikube.me"
+  gateways:
+  - mail-gateway
+  http:
+  - route:
+    - destination:
+        host: mail-server
+        port:
+          number: 1080
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: mail
+  namespace: istio-system
+spec:
+  host: mail-server
+  trafficPolicy:
+    tls:
+      mode: DISABLE

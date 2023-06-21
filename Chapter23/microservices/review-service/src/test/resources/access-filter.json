@@ -1,0 +1,17 @@
+{ "rules":
+  [
+    {"excludeClasses": "org.apache.maven.surefire.**"},
+    {"excludeClasses": "net.bytebuddy.**"},
+    {"excludeClasses": "org.apiguardian.**"},
+    {"excludeClasses": "org.junit.**"},
+    {"excludeClasses": "org.gradle.**"},
+    {"excludeClasses": "org.mockito.**"},
+    {"excludeClasses": "org.springframework.test.**"},
+    {"excludeClasses": "org.springframework.boot.test.**"},
+    {"excludeClasses": "org.testcontainers.**"},
+    {"excludeClasses": "se.magnus.microservices.core.review.MapperTests"},
+    {"excludeClasses": "se.magnus.microservices.core.review.MySqlTestBase"},
+    {"excludeClasses": "se.magnus.microservices.core.review.PersistenceTests"},
+    {"excludeClasses": "se.magnus.microservices.core.review.ReviewServiceApplicationTests"}
+  ]
+}

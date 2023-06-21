@@ -1,0 +1,1 @@
+{{- template "common.istio_vs_green_blue_deploy" . -}}

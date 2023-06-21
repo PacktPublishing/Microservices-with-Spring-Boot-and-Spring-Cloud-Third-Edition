@@ -1,0 +1,17 @@
+[
+  {
+    "name":"org.springframework.web.reactive.function.client.WebClientResponseException$InternalServerError",
+    "queryAllPublicConstructors":true,
+    "queryAllDeclaredConstructors":true,
+    "queryAllPublicMethods":true,
+    "queryAllDeclaredMethods":true,
+    "allPublicConstructors":true,
+    "allDeclaredConstructors":true,
+    "allPublicMethods":true,
+    "allDeclaredMethods":true,
+    "allPublicFields":true,
+    "allDeclaredFields":true,
+    "allPublicClasses":true,
+    "allDeclaredClasses":true
+  }
+]

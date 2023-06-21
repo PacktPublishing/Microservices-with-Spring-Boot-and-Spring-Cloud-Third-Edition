@@ -1,0 +1,18 @@
+{ "rules":
+  [
+    {"excludeClasses": "org.apache.maven.surefire.**"},
+    {"excludeClasses": "net.bytebuddy.**"},
+    {"excludeClasses": "org.apiguardian.**"},
+    {"excludeClasses": "org.junit.**"},
+    {"excludeClasses": "org.gradle.**"},
+    {"excludeClasses": "org.mockito.**"},
+    {"excludeClasses": "org.springframework.test.**"},
+    {"excludeClasses": "org.springframework.boot.test.**"},
+    {"excludeClasses": "org.springframework.boot.SpringApplication"},
+    {"excludeClasses": "org.testcontainers.**"},
+    {"excludeClasses": "se.magnus.microservices.composite.product.IsSameEventTests"},
+    {"excludeClasses": "se.magnus.microservices.composite.product.MessagingTests"},
+    {"excludeClasses": "se.magnus.microservices.composite.product.ProductCompositeServiceApplicationTests"},
+    {"excludeClasses": "se.magnus.microservices.composite.product.TestSecurityConfig"}
+  ]
+}

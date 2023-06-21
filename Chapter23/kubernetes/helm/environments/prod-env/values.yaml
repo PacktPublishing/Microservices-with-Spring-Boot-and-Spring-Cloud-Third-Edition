@@ -1,0 +1,163 @@
+secrets:
+
+  rabbitmq-credentials:
+    SPRING_RABBITMQ_USERNAME: rabbit-user-prod
+    SPRING_RABBITMQ_PASSWORD: rabbit-pwd-prod
+
+  mongodb-credentials:
+    SPRING_DATA_MONGODB_AUTHENTICATION_DATABASE: admin
+    SPRING_DATA_MONGODB_USERNAME: mongodb-user-prod
+    SPRING_DATA_MONGODB_PASSWORD: mongodb-pwd-prod
+
+  mysql-credentials:
+    SPRING_DATASOURCE_USERNAME: mysql-user-prod
+    SPRING_DATASOURCE_PASSWORD: mysql-pwd-prod
+
+auth-server:
+  image:
+    tag: v1
+  env:
+    SPRING_PROFILES_ACTIVE: "docker,prod"
+  envFromSecretRefs:
+    - rabbitmq-credentials
+  resources:
+    requests:
+      memory: 200Mi
+    limits:
+      memory: 400Mi
+
+product:
+  fullnameOverride: product-v1
+  image:
+    tag: v1
+  env:
+    SPRING_PROFILES_ACTIVE: "docker,prod"
+  envFromSecretRefs:
+    - rabbitmq-credentials
+    - mongodb-credentials
+  resources:
+    requests:
+      memory: 200Mi
+    limits:
+      memory: 400Mi
+
+recommendation:
+  fullnameOverride: recommendation-v1
+  image:
+    tag: v1
+  env:
+    SPRING_PROFILES_ACTIVE: "docker,prod"
+  envFromSecretRefs:
+    - rabbitmq-credentials
+    - mongodb-credentials
+  resources:
+    requests:
+      memory: 200Mi
+    limits:
+      memory: 400Mi
+
+review:
+  fullnameOverride: review-v1
+  image:
+    tag: v1
+  env:
+    SPRING_PROFILES_ACTIVE: "docker,prod"
+  envFromSecretRefs:
+    - rabbitmq-credentials
+    - mysql-credentials
+  resources:
+    requests:
+      memory: 200Mi
+    limits:
+      memory: 400Mi
+
+product-composite:
+  image:
+    tag: v1
+  env:
+    SPRING_PROFILES_ACTIVE: "docker,prod"
+  envFromSecretRefs:
+    - rabbitmq-credentials
+  resources:
+    requests:
+      memory: 200Mi
+    limits:
+      memory: 400Mi
+
+product-green:
+  fullnameOverride: product-v2
+  image:
+    tag: v2
+  env:
+    SPRING_PROFILES_ACTIVE: "docker,prod"
+  envFromSecretRefs:
+    - rabbitmq-credentials
+    - mongodb-credentials
+  resources:
+    requests:
+      memory: 200Mi
+    limits:
+      memory: 400Mi
+
+recommendation-green:
+  fullnameOverride: recommendation-v2
+  image:
+    tag: v2
+  env:
+    SPRING_PROFILES_ACTIVE: "docker,prod"
+  envFromSecretRefs:
+    - rabbitmq-credentials
+    - mongodb-credentials
+  resources:
+    requests:
+      memory: 200Mi
+    limits:
+      memory: 400Mi
+
+review-green:
+  fullnameOverride: review-v2
+  image:
+    tag: v2
+  env:
+    SPRING_PROFILES_ACTIVE: "docker,prod"
+  envFromSecretRefs:
+    - rabbitmq-credentials
+    - mysql-credentials
+  resources:
+    requests:
+      memory: 200Mi
+    limits:
+      memory: 400Mi
+
+virtualServices:
+  - product
+  - recommendation
+  - review
+
+destinationRules:
+  - name: product-composite
+  - name: auth-server
+  - name: product
+    subsets:
+    - labels:
+        version: v1
+      name: old
+    - labels:
+        version: v2
+      name: new
+  - name: recommendation
+    subsets:
+    - labels:
+        version: v1
+      name: old
+    - labels:
+        version: v2
+      name: new
+  - name: review
+    subsets:
+    - labels:
+        version: v1
+      name: old
+    - labels:
+        version: v2
+      name: new

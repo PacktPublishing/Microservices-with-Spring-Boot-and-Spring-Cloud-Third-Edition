@@ -1,0 +1,13 @@
+# Required to make the Spring AOT engine generate the appropriate infrastructure for a separate management port, prometheus and K8S probes at build time
+management.server.port: 9009
+management.endpoint.health.probes.enabled: true
+management.endpoints.web.exposure.include: health,info,prometheus
+
+# Native Compile: Point out that RabbitMQ is to be used when performing the native compile
+spring.cloud.stream.defaultBinder: rabbit
+
+# Native Compile: Required to disable the health check of RabbitMQ when using Kafka
+# management.health.rabbit.enabled: false
+
+# Native Compile: Required to disable the health check of Kafka when using RabbitMQ
+management.health.kafka.enabled: false
