@@ -23,10 +23,6 @@ By the end, you'll build scalable microservices using Spring Boot and Spring Clo
 - Use Spring AOT and GraalVM to native compile the microservices
 - Use Micrometer Tracing for distributed tracing
 
-## New Edition v/s Previous Edition: 
-
-## What's New 
-
 ## Outline and Chapter Summary
 This book is about building production-ready microservices using Spring Boot 3 and Spring Cloud. This book primarily covers Spring Boot, Spring Cloud, Docker, Kubernetes, Istio, the EFK stack, Prometheus, and Grafana. Each of these open source tools works great by itself, but it can be challenging to understand how to use them together in an advantageous way. In some areas, they complement each other, but in other areas they overlap, and it is not obvious which one to choose for a particular situation.
 This is a hands-on book that describes step by step how to use these open source tools together. This is the book I was looking for ten years ago when I started to learn about microservices, but with updated versions of the open source tools it covers.
