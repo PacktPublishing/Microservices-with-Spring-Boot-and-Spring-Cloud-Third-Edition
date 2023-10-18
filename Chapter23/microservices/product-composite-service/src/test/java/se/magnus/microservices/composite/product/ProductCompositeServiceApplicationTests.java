@@ -24,6 +24,11 @@ import se.magnus.api.exceptions.InvalidInputException;
 import se.magnus.api.exceptions.NotFoundException;
 import se.magnus.microservices.composite.product.services.ProductCompositeIntegration;
 
+// Due to mockito not supported in native tests?
+// java.lang.IllegalStateException: Failed to load AOT ApplicationContextInitializer class for test class
+// [se.magnus.microservices.composite.product.ProductCompositeServiceApplicationTests].
+// This can occur if AOT processing has not taken place for the test suite.
+// It can also occur if AOT processing failed for the test class, in which case you can consult the logs generated during AOT processing.
 @DisabledInNativeImage
 @SpringBootTest(
   webEnvironment = RANDOM_PORT,

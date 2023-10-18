@@ -1,10 +1,14 @@
 server.port: 8443
 spring.application.name: gateway
 
-server.ssl:
-  key-store-type: PKCS12
-  key-store: classpath:keystore/edge.p12
-  key-alias: localhost
+spring.ssl.bundle.jks.gateway:
+  key:
+    alias: localhost
+  keystore:
+    type: PKCS12
+    location: classpath:keystore/edge.p12
+
+server.ssl.bundle: gateway
 
 spring.cloud.gateway.routes:
 

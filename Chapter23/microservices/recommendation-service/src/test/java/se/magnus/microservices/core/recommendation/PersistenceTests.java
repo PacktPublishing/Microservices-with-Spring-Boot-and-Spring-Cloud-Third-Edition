@@ -15,7 +15,6 @@ import org.springframework.dao.OptimisticLockingFailureException;
 import se.magnus.microservices.core.recommendation.persistence.RecommendationEntity;
 import se.magnus.microservices.core.recommendation.persistence.RecommendationRepository;
 
-@DisabledInNativeImage
 @DataMongoTest
 class PersistenceTests extends MongoDbTestBase {
 
@@ -63,6 +62,9 @@ class PersistenceTests extends MongoDbTestBase {
     assertFalse(repository.existsById(savedEntity.getId()).block());
   }
 
+  // Native tests fails on:
+  // => java.lang.Error: Cannot determine correct type for featureValueOf() method.
+  @DisabledInNativeImage
   @Test
   void getByProductId() {
     List<RecommendationEntity> entityList = repository.findByProductId(savedEntity.getProductId()).collectList().block();

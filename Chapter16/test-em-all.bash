@@ -267,7 +267,7 @@ AUTH="-H \"Authorization: Bearer $ACCESS_TOKEN\""
 
 # Verify access to the Config server and that its encrypt/decrypt endpoints work
 assertCurl 200 "curl -H "accept:application/json" -k https://$CONFIG_SERVER_USR:$CONFIG_SERVER_PWD@$HOST:$PORT/config/product/docker -s"
-TEST_VALUE="hello world"
+TEST_VALUE="hello-world"
 ENCRYPTED_VALUE=$(curl -k https://$CONFIG_SERVER_USR:$CONFIG_SERVER_PWD@$HOST:$PORT/config/encrypt --data-urlencode "$TEST_VALUE" -s)
 DECRYPTED_VALUE=$(curl -k https://$CONFIG_SERVER_USR:$CONFIG_SERVER_PWD@$HOST:$PORT/config/decrypt -d $ENCRYPTED_VALUE -s)
 assertEqual "$TEST_VALUE" "$DECRYPTED_VALUE"

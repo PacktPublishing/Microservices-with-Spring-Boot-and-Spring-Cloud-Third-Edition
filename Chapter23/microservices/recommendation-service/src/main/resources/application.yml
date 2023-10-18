@@ -11,3 +11,6 @@ spring.cloud.stream.defaultBinder: rabbit
 
 # Native Compile: Required to disable the health check of Kafka when using RabbitMQ
 management.health.kafka.enabled: false
+
+# Native Compile: Required to get proper error message from Spring Rest tests
+server.error.include-message: always

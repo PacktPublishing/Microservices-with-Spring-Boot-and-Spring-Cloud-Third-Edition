@@ -24,3 +24,34 @@ management.health.kafka.enabled: false
 # Native Compile: Required to get the Circuit Breaker's healthcheck work properly
 management.health.circuitbreakers.enabled: true
 
+resilience4j.circuitbreaker:
+  instances:
+    product:
+      allowHealthIndicatorToFail: false
+      registerHealthIndicator: true
+      slidingWindowType: COUNT_BASED
+      slidingWindowSize: 5
+      failureRateThreshold: 50
+      waitDurationInOpenState: 10000
+      permittedNumberOfCallsInHalfOpenState: 3
+      automaticTransitionFromOpenToHalfOpenEnabled: true
+      ignoreExceptions:
+        - se.magnus.api.exceptions.InvalidInputException
+        - se.magnus.api.exceptions.NotFoundException
+
+# TODO: To make nativeTests work?
+api:
+
+  common:
+    version:
+    title:
+    description:
+    termsOfService:
+    license:
+    licenseUrl:
+    externalDocDesc:
+    externalDocUrl:
+    contact:
+      name:
+      url:
+      email:

@@ -2,7 +2,6 @@ package se.magnus.microservices.core.product;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledInNativeImage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.dao.DuplicateKeyException;
@@ -11,7 +10,6 @@ import reactor.test.StepVerifier;
 import se.magnus.microservices.core.product.persistence.ProductEntity;
 import se.magnus.microservices.core.product.persistence.ProductRepository;
 
-@DisabledInNativeImage
 @DataMongoTest
 class PersistenceTests extends MongoDbTestBase {
 

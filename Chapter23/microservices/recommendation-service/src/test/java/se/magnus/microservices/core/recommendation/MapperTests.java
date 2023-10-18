@@ -11,6 +11,8 @@ import se.magnus.api.core.recommendation.Recommendation;
 import se.magnus.microservices.core.recommendation.persistence.RecommendationEntity;
 import se.magnus.microservices.core.recommendation.services.RecommendationMapper;
 
+// Fails on:
+// com.oracle.svm.core.jdk.UnsupportedFeatureError: Runtime reflection is not supported for public se.magnus.microservices.core.product.services.ProductMapperImpl()
 @DisabledInNativeImage
 class MapperTests {
 

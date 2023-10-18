@@ -81,6 +81,8 @@ server.error.include-message: always
 
 spring.application.name: product-composite
 
+management.endpoint.health.group.readiness.include: readinessState, rabbit
+
 spring.cloud.stream:
   default.contentType: application/json
   bindings:
@@ -158,6 +160,11 @@ spring.cloud.stream.bindings.recommendations-out-0.producer:
 spring.cloud.stream.bindings.reviews-out-0.producer:
   partition-key-expression: headers['partitionKey']
   partition-count: 2
+
+---
+spring.config.activate.on-profile: kafka
+
+management.endpoint.health.group.readiness.include: readinessState
 
 ---
 spring.config.activate.on-profile: prod

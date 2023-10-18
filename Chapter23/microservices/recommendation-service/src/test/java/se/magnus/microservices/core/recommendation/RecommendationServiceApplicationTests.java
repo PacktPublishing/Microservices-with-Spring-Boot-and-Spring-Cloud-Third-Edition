@@ -21,7 +21,6 @@ import se.magnus.api.event.Event;
 import se.magnus.api.exceptions.InvalidInputException;
 import se.magnus.microservices.core.recommendation.persistence.RecommendationRepository;
 
-@DisabledInNativeImage
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 class RecommendationServiceApplicationTests extends MongoDbTestBase {
 
@@ -40,6 +39,12 @@ class RecommendationServiceApplicationTests extends MongoDbTestBase {
     repository.deleteAll().block();
   }
 
+  // Fails on:
+  //  java.lang.AssertionError: No value at JSON path "$.length()"
+  //  Caused by: com.jayway.jsonpath.InvalidPathException: Function of name: length cannot be created
+  //  Caused by: java.lang.InstantiationException: com.jayway.jsonpath.internal.function.text.Length
+  //  Caused by: java.lang.NoSuchMethodException: com.jayway.jsonpath.internal.function.text.Length.<init>()
+  @DisabledInNativeImage
   @Test
   void getRecommendationsByProductId() {
 
@@ -107,6 +112,12 @@ class RecommendationServiceApplicationTests extends MongoDbTestBase {
       .jsonPath("$.message").isEqualTo("Type mismatch.");
   }
 
+  // Fails on:
+  //  java.lang.AssertionError: No value at JSON path "$.length()"
+  //  Caused by: com.jayway.jsonpath.InvalidPathException: Function of name: length cannot be created
+  //  Caused by: java.lang.InstantiationException: com.jayway.jsonpath.internal.function.text.Length
+  //  Caused by: java.lang.NoSuchMethodException: com.jayway.jsonpath.internal.function.text.Length.<init>()
+  @DisabledInNativeImage
   @Test
   void getRecommendationsNotFound() {
 

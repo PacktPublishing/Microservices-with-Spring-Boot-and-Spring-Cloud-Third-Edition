@@ -14,11 +14,13 @@ import org.junit.jupiter.api.condition.DisabledInNativeImage;
 import se.magnus.api.core.product.Product;
 import se.magnus.api.event.Event;
 
-@DisabledInNativeImage
 class IsSameEventTests {
 
   ObjectMapper mapper = new ObjectMapper();
 
+  // Due to error like:
+  // - java.lang.Error: Cannot determine correct type for matchesSafely() method.
+  @DisabledInNativeImage
   @Test
   void testEventObjectCompare() throws JsonProcessingException {
 

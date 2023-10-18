@@ -34,7 +34,6 @@ import se.magnus.api.core.recommendation.Recommendation;
 import se.magnus.api.core.review.Review;
 import se.magnus.api.event.Event;
 
-@DisabledInNativeImage
 @SpringBootTest(
   webEnvironment = RANDOM_PORT,
   classes = {TestSecurityConfig.class},
@@ -60,6 +59,9 @@ class MessagingTests {
     purgeMessages("reviews");
   }
 
+  // Due to error like:
+  // - java.lang.AssertionError: Status expected:<202 ACCEPTED> but was:<500 INTERNAL_SERVER_ERROR>
+  @DisabledInNativeImage
   @Test
   void createCompositeProduct1() {
 
@@ -82,6 +84,9 @@ class MessagingTests {
     assertEquals(0, reviewMessages.size());
   }
 
+  // Due to error like:
+  // - java.lang.AssertionError: Status expected:<202 ACCEPTED> but was:<500 INTERNAL_SERVER_ERROR>
+  @DisabledInNativeImage
   @Test
   void createCompositeProduct2() {
 
@@ -119,6 +124,9 @@ class MessagingTests {
     assertThat(reviewMessages.get(0), is(sameEventExceptCreatedAt(expectedReviewEvent)));
   }
 
+  // Due to error like:
+  // - java.lang.AssertionError: Status expected:<202 ACCEPTED> but was:<500 INTERNAL_SERVER_ERROR>
+  @DisabledInNativeImage
   @Test
   void deleteCompositeProduct() {
     deleteAndVerifyProduct(1, ACCEPTED);

@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import se.magnus.microservices.core.review.persistence.ReviewEntity;
 import se.magnus.microservices.core.review.persistence.ReviewRepository;
 
+// Native tests fails on " java.lang.IllegalArgumentException: Resource with path mysql-default-conf could not be found on any of these classloaders: ..."
 @DisabledInNativeImage
 @DataJpaTest(properties = {"spring.jpa.hibernate.ddl-auto=update"})
 @Transactional(propagation = NOT_SUPPORTED)

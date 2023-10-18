@@ -1,10 +1,14 @@
 server.port: 8443
 
-server.ssl:
-  key-store-type: PKCS12
-  key-store: classpath:keystore/edge.p12
-  key-store-password: '{cipher}d59274473b196cebe288f849c442eba34aa497d14a13e10a23f824489e1c23ec'
-  key-alias: localhost
+spring.ssl.bundle.jks.gateway:
+  key:
+    alias: localhost
+  keystore:
+    type: PKCS12
+    location: classpath:keystore/edge.p12
+    password: '{cipher}d59274473b196cebe288f849c442eba34aa497d14a13e10a23f824489e1c23ec'
+
+server.ssl.bundle: gateway
 
 spring.cloud.gateway.routes:
 

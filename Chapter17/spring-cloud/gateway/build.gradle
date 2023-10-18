@@ -1,6 +1,6 @@
 plugins {
-    id 'org.springframework.boot' version '3.0.4'
-    id 'io.spring.dependency-management' version '1.1.0'
+    id 'org.springframework.boot' version '3.1.4'
+    id 'io.spring.dependency-management' version '1.1.3'
     id 'java'
 }
 
@@ -13,7 +13,7 @@ repositories {
 }
 
 ext {
-    springCloudVersion = "2022.0.1"
+    springCloudVersion = "2022.0.4"
 }
 
 jar {

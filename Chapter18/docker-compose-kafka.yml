@@ -185,7 +185,7 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=docker
       - SPRING_CONFIG_LOCATION=file:/config-repo/application.yml,file:/config-repo/gateway.yml
-      - SERVER_SSL_KEY_STORE_PASSWORD=${GATEWAY_TLS_PWD}
+      - SPRING_SSL_BUNDLE_JKS_GATEWAY_KEYSTORE_PASSWORD=${GATEWAY_TLS_PWD}
     volumes:
       - $PWD/config-repo:/config-repo
     ports:

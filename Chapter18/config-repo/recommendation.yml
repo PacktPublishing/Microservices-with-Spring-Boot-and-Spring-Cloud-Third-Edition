@@ -3,6 +3,8 @@ server.error.include-message: always
 
 spring.application.name: recommendation
 
+management.endpoint.health.group.readiness.include: readinessState, rabbit, mongo
+
 spring.data.mongodb:
   host: localhost
   port: 27017
@@ -58,6 +60,11 @@ spring.cloud.stream.bindings.messageProcessor-in-0.consumer.instanceIndex: 0
 spring.config.activate.on-profile: streaming_instance_1
 
 spring.cloud.stream.bindings.messageProcessor-in-0.consumer.instanceIndex: 1
+
+---
+spring.config.activate.on-profile: kafka
+
+management.endpoint.health.group.readiness.include: readinessState, mongo
 
 ---
 spring.config.activate.on-profile: prod

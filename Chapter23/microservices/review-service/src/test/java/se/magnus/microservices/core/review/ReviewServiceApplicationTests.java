@@ -21,6 +21,7 @@ import se.magnus.api.event.Event;
 import se.magnus.api.exceptions.InvalidInputException;
 import se.magnus.microservices.core.review.persistence.ReviewRepository;
 
+// Native tests fails on " java.lang.IllegalArgumentException: Resource with path mysql-default-conf could not be found on any of these classloaders: ..."
 @DisabledInNativeImage
 @SpringBootTest(webEnvironment = RANDOM_PORT, properties = {
   "spring.cloud.stream.defaultBinder=rabbit",

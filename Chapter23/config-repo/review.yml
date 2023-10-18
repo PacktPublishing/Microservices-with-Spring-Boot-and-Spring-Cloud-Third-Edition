@@ -3,6 +3,8 @@ server.error.include-message: always
 
 spring.application.name: review
 
+management.endpoint.health.group.readiness.include: readinessState, rabbit, db
+
 # Strongly recommend to set this property to "none" in a production environment!
 spring.jpa.hibernate.ddl-auto: update
 
@@ -62,6 +64,11 @@ spring.cloud.stream.bindings.messageProcessor-in-0.consumer.instanceIndex: 0
 spring.config.activate.on-profile: streaming_instance_1
 
 spring.cloud.stream.bindings.messageProcessor-in-0.consumer.instanceIndex: 1
+
+---
+spring.config.activate.on-profile: kafka
+
+management.endpoint.health.group.readiness.include: readinessState, db
 
 ---
 spring.config.activate.on-profile: prod

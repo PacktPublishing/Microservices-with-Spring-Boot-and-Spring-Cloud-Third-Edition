@@ -11,7 +11,8 @@ import se.magnus.api.core.review.Review;
 import se.magnus.microservices.core.review.persistence.ReviewEntity;
 import se.magnus.microservices.core.review.services.ReviewMapper;
 
-
+// Fails on:
+// com.oracle.svm.core.jdk.UnsupportedFeatureError: Runtime reflection is not supported for public se.magnus.microservices.core.product.services.ProductMapperImpl()
 @DisabledInNativeImage
 class MapperTests {
 

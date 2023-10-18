@@ -9,6 +9,8 @@ import se.magnus.api.core.product.Product;
 import se.magnus.microservices.core.product.persistence.ProductEntity;
 import se.magnus.microservices.core.product.services.ProductMapper;
 
+// Fails on:
+// com.oracle.svm.core.jdk.UnsupportedFeatureError: Runtime reflection is not supported for public se.magnus.microservices.core.product.services.ProductMapperImpl()
 @DisabledInNativeImage
 class MapperTests {
 
