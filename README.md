@@ -29,6 +29,17 @@ If you want to try out the source code of this book with newer versions of Sprin
 
 1. [Upgrade to Spring Boot 3.1](https://callistaenterprise.se/blogg/teknik/2023/10/18/microservices-upgrade-to-SpringBoot31/) (published 10 October 2023)
 
+## Errata
+* **Page 81**, section *Running our first Docker commands*: 
+
+  The sentence  
+
+    *We can leave the container with an exit command and verify that the Ubuntu container no longer **exits** with the docker ps -a command.*  
+
+  should be  
+
+  *We can leave the container with an exit command and verify that the Ubuntu container no longer **exists** with the docker ps -a command.*
+  
 ## Outline and Chapter Summary
 This book is about building production-ready microservices using Spring Boot 3 and Spring Cloud. This book primarily covers Spring Boot, Spring Cloud, Docker, Kubernetes, Istio, the EFK stack, Prometheus, and Grafana. Each of these open source tools works great by itself, but it can be challenging to understand how to use them together in an advantageous way. In some areas, they complement each other, but in other areas they overlap, and it is not obvious which one to choose for a particular situation.
 This is a hands-on book that describes step by step how to use these open source tools together. This is the book I was looking for ten years ago when I started to learn about microservices, but with updated versions of the open source tools it covers.
