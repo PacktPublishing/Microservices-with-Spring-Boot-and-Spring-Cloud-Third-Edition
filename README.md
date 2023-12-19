@@ -42,6 +42,12 @@ If you want to try out the source code of this book with newer versions of Sprin
 
   Should be: *Docker will use the Dockerfile in the current directory to build **the Docker image**.*  
 
+* **Page 173**, section *Non-blocking REST APIs in the composite services*: 
+
+  The sentence: *Change the service implementation so it calls the **coreata** services’ APIs in parallel and in a non-blocking way*  
+
+  Should be: *Change the service implementation so it calls the **core** services’ APIs in parallel and in a non-blocking way*  
+
 ## Outline and Chapter Summary
 This book is about building production-ready microservices using Spring Boot 3 and Spring Cloud. This book primarily covers Spring Boot, Spring Cloud, Docker, Kubernetes, Istio, the EFK stack, Prometheus, and Grafana. Each of these open source tools works great by itself, but it can be challenging to understand how to use them together in an advantageous way. In some areas, they complement each other, but in other areas they overlap, and it is not obvious which one to choose for a particular situation.
 This is a hands-on book that describes step by step how to use these open source tools together. This is the book I was looking for ten years ago when I started to learn about microservices, but with updated versions of the open source tools it covers.
