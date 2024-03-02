@@ -48,6 +48,26 @@ If you want to try out the source code of this book with newer versions of Sprin
 
   Should be: *Change the service implementation so it calls the **core** services’ APIs in parallel and in a non-blocking way*  
 
+* **Page 603**, chapter 21, *Installation Instructions for macOS*, section *Post-installation actions*.
+
+  The following post-installation instruction is missing:
+
+  Ensure that the option *Allow the default Docker socket to be used (requires password)* is selected. This option will create a symlink for the Docker socket at `/var/run/docker.sock`. If this option is not enabled, running tests with Test Containers will fail with error messages like:
+
+  ```
+  Caused by: java.lang.IllegalStateException: Could not find a valid Docker environment. Please see logs and check configuration
+  ```
+
+  The symlink can also be installed using the following command:
+
+  ```
+  sudo ln -s ~/.docker/run/docker.sock /var/run/docker.sock
+  ```
+
+  For more information, see: 
+  1. <https://docs.docker.com/desktop/settings/mac/#advanced-1>
+  2. <https://docs.docker.com/desktop/mac/permission-requirements/#installing-symlinks>
+
 ## Outline and Chapter Summary
 This book is about building production-ready microservices using Spring Boot 3 and Spring Cloud. This book primarily covers Spring Boot, Spring Cloud, Docker, Kubernetes, Istio, the EFK stack, Prometheus, and Grafana. Each of these open source tools works great by itself, but it can be challenging to understand how to use them together in an advantageous way. In some areas, they complement each other, but in other areas they overlap, and it is not obvious which one to choose for a particular situation.
 This is a hands-on book that describes step by step how to use these open source tools together. This is the book I was looking for ten years ago when I started to learn about microservices, but with updated versions of the open source tools it covers.
