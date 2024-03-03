@@ -30,6 +30,11 @@ If you want to try out the source code of this book with newer versions of Sprin
 1. [Upgrade to Spring Boot 3.1](https://callistaenterprise.se/blogg/teknik/2023/10/18/microservices-upgrade-to-SpringBoot31/) (published 10 October 2023)
 
 ## Errata
+
+* **Page 51**, section *Using Spring Initializr to generate skeleton code*:
+
+    Spring Boot 3.0.x is no longer available for use by Spring Initializr.  For updated instructions on how to use Spring Initializr with Spring Boot 3.1, see [Upgrade to Spring Boot 3.1](https://callistaenterprise.se/blogg/teknik/2023/10/18/microservices-upgrade-to-SpringBoot31/).
+
 * **Page 81**, section *Running our first Docker commands*: 
 
   The sentence: *We can leave the container with an exit command and verify that the Ubuntu container no longer **exits** with the docker ps -a command.*  
