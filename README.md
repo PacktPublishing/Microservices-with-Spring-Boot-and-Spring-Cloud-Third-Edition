@@ -29,6 +29,54 @@ If you want to try out the source code of this book with newer versions of Sprin
 
 1. [Upgrade to Spring Boot 3.1](https://callistaenterprise.se/blogg/teknik/2023/10/18/microservices-upgrade-to-SpringBoot31/) (published 10 October 2023)
 
+## Errata
+
+* **Chapters 4 - 23**
+
+  The deprecated CLI command `docker-compose` (v1) has been replaced with with `docker compose` (v2) in the test script `test-em-all.bash`. For more information, see [Docker docs on how to migrate to Compose V2](https://docs.docker.com/compose/migrate/#:~:text=From%20July%202023%20Compose%20V1,supported%20versions%20of%20Docker%20Desktop).
+
+* **Page 51**, section *Using Spring Initializr to generate skeleton code*:
+
+  Spring Boot 3.0.x is no longer available for use by Spring Initializr. For updated instructions on how to use Spring Initializr with Spring Boot 3.1, see [Upgrade to Spring Boot 3.1](https://callistaenterprise.se/blogg/teknik/2023/10/18/microservices-upgrade-to-SpringBoot31/).
+
+* **Page 81**, section *Running our first Docker commands*: 
+
+  The sentence: *We can leave the container with an exit command and verify that the Ubuntu container no longer **exits** with the docker ps -a command.*  
+
+  Should be: *We can leave the container with an exit command and verify that the Ubuntu container no longer **exists** with the docker ps -a command.*
+  
+* **Page 89**, section *Building a Docker image*: 
+
+  The sentence: *Docker will use the Dockerfile in the current directory to build **Docker Engine**.*  
+
+  Should be: *Docker will use the Dockerfile in the current directory to build **the Docker image**.*  
+
+* **Page 173**, section *Non-blocking REST APIs in the composite services*: 
+
+  The sentence: *Change the service implementation so it calls the **coreata** services’ APIs in parallel and in a non-blocking way*  
+
+  Should be: *Change the service implementation so it calls the **core** services’ APIs in parallel and in a non-blocking way*  
+
+* **Page 603**, chapter 21, *Installation Instructions for macOS*, section *Post-installation actions*.
+
+  The following post-installation instruction is missing:
+
+  Ensure that the option *Allow the default Docker socket to be used (requires password)* is selected. This option will create a symlink for the Docker socket at `/var/run/docker.sock`. If this option is not enabled, running tests with Test Containers will fail with error messages like:
+
+  ```
+  Caused by: java.lang.IllegalStateException: Could not find a valid Docker environment. Please see logs and check configuration
+  ```
+
+  The symlink can also be installed using the following command:
+
+  ```
+  sudo ln -s ~/.docker/run/docker.sock /var/run/docker.sock
+  ```
+
+  For more information, see: 
+  1. <https://docs.docker.com/desktop/settings/mac/#advanced-1>
+  2. <https://docs.docker.com/desktop/mac/permission-requirements/#installing-symlinks>
+
 ## Outline and Chapter Summary
 This book is about building production-ready microservices using Spring Boot 3 and Spring Cloud. This book primarily covers Spring Boot, Spring Cloud, Docker, Kubernetes, Istio, the EFK stack, Prometheus, and Grafana. Each of these open source tools works great by itself, but it can be challenging to understand how to use them together in an advantageous way. In some areas, they complement each other, but in other areas they overlap, and it is not obvious which one to choose for a particular situation.
 This is a hands-on book that describes step by step how to use these open source tools together. This is the book I was looking for ten years ago when I started to learn about microservices, but with updated versions of the open source tools it covers.
