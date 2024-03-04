@@ -182,7 +182,7 @@ function testCircuitBreaker() {
     if [[ $USE_K8S == "false" ]]
     then
         # Use the auth-server to run curl, since the product-composite is native compiled
-        EXEC="docker-compose exec -T auth-server"
+        EXEC="docker compose exec -T auth-server"
     else
         # Use the auth-server to run curl, since the product-composite is native compiled
         EXEC="kubectl -n $NAMESPACE exec deploy/auth-server -c auth-server -- "
@@ -253,10 +253,10 @@ echo "SKIP_CB_TESTS=${SKIP_CB_TESTS}"
 if [[ $@ == *"start"* ]]
 then
   echo "Restarting the test environment..."
-  echo "$ docker-compose down --remove-orphans"
-  docker-compose down --remove-orphans
-  echo "$ docker-compose up -d"
-  docker-compose up -d
+  echo "$ docker compose down --remove-orphans"
+  docker compose down --remove-orphans
+  echo "$ docker compose up -d"
+  docker compose up -d
 fi
 
 waitForService curl -k $HEALTH_URL/actuator/health
@@ -339,8 +339,8 @@ fi
 if [[ $@ == *"stop"* ]]
 then
     echo "We are done, stopping the test environment..."
-    echo "$ docker-compose down"
-    docker-compose down
+    echo "$ docker compose down"
+    docker compose down
 fi
 
 echo "End, all tests OK:" `date`

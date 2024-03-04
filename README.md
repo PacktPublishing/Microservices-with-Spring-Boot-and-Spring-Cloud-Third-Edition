@@ -31,9 +31,13 @@ If you want to try out the source code of this book with newer versions of Sprin
 
 ## Errata
 
+* **Chapters 4 - 23**
+
+  The deprecated CLI command `docker-compose` (v1) has been replaced with with `docker compose` (v2) in the test script `test-em-all.bash`. For more information, see [Docker docs on how to migrate to Compose V2](https://docs.docker.com/compose/migrate/#:~:text=From%20July%202023%20Compose%20V1,supported%20versions%20of%20Docker%20Desktop).
+
 * **Page 51**, section *Using Spring Initializr to generate skeleton code*:
 
-    Spring Boot 3.0.x is no longer available for use by Spring Initializr.  For updated instructions on how to use Spring Initializr with Spring Boot 3.1, see [Upgrade to Spring Boot 3.1](https://callistaenterprise.se/blogg/teknik/2023/10/18/microservices-upgrade-to-SpringBoot31/).
+  Spring Boot 3.0.x is no longer available for use by Spring Initializr. For updated instructions on how to use Spring Initializr with Spring Boot 3.1, see [Upgrade to Spring Boot 3.1](https://callistaenterprise.se/blogg/teknik/2023/10/18/microservices-upgrade-to-SpringBoot31/).
 
 * **Page 81**, section *Running our first Docker commands*: 
 

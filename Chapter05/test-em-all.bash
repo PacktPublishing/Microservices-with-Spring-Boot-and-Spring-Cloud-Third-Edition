@@ -88,10 +88,10 @@ echo "PORT=${PORT}"
 if [[ $@ == *"start"* ]]
 then
   echo "Restarting the test environment..."
-  echo "$ docker-compose down --remove-orphans"
-  docker-compose down --remove-orphans
-  echo "$ docker-compose up -d"
-  docker-compose up -d
+  echo "$ docker compose down --remove-orphans"
+  docker compose down --remove-orphans
+  echo "$ docker compose up -d"
+  docker compose up -d
 fi
 
 waitForService curl http://$HOST:$PORT/product-composite/$PROD_ID_REVS_RECS
@@ -139,8 +139,8 @@ assertCurl 200 "curl -s  http://$HOST:$PORT/openapi/v3/api-docs.yaml"
 if [[ $@ == *"stop"* ]]
 then
     echo "We are done, stopping the test environment..."
-    echo "$ docker-compose down"
-    docker-compose down
+    echo "$ docker compose down"
+    docker compose down
 fi
 
 echo "End, all tests OK:" `date`
