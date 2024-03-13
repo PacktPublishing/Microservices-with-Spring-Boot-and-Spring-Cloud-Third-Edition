@@ -3,7 +3,7 @@ fullnameOverride: mongodb
 image:
   repository: registry.hub.docker.com/library
   name: mongo
-  tag: 6.0.4
+  tag: 6
   pullPolicy: IfNotPresent
 
 ports:

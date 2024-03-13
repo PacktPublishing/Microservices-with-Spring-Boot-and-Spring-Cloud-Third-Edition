@@ -3,7 +3,7 @@ fullnameOverride: mysql
 image:
   repository: registry.hub.docker.com/library
   name: mysql
-  tag: 8.0.32
+  tag: 8
   pullPolicy: IfNotPresent
 
 ports:

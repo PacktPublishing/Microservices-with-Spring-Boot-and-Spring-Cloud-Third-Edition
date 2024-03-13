@@ -1,0 +1,41 @@
+target/
+!.mvn/wrapper/maven-wrapper.jar
+.flattened-pom.xml
+*.releaseBackup
+release.properties
+
+## STS ##
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+
+## IntelliJ IDEA ##
+.idea
+*.iws
+*.iml
+*.ipr
+
+## JRebel ##
+rebel.xml
+
+## MAC ##
+.DS_Store
+
+## Other ##
+logs/
+temp/
+javadocs/
+
+# npm
+node_modules
+.gitkeep
+.gitrepo
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+*.pid
+
+

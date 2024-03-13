@@ -1,14 +1,14 @@
 plugins {
-    id 'org.springframework.boot' version '3.1.4'
-    id 'io.spring.dependency-management' version '1.1.3'
+    id 'org.springframework.boot' version '3.2.3'
+    id 'io.spring.dependency-management' version '1.1.4'
     id 'java'
 }
 
 group = 'se.magnus.microservices.composite.product'
 version = '1.0.0-SNAPSHOT'
-sourceCompatibility = '17'
+sourceCompatibility = '21'
 ext {
-    springCloudVersion = "2022.0.4"
+    springCloudVersion = "2023.0.0"
 }
 repositories {
     mavenCentral()
@@ -32,7 +32,8 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-starter-config'
     implementation 'org.springframework.cloud:spring-cloud-config-client:4.0.2'
     implementation 'org.springframework.retry:spring-retry'
-    implementation 'org.springdoc:springdoc-openapi-starter-webflux-ui:2.1.0'
+    implementation 'org.springdoc:springdoc-openapi-starter-webflux-ui:2.3.0'
+    implementation 'com.github.therapi:therapi-runtime-javadoc:0.15.0'
 
     // To avoid the following error message on Apple silicon (for details, see https://github.com/netty/netty/issues/11693):
     // Unable to load io.netty.resolver.dns.macos.MacOSDnsServerAddressStreamProvider, fallback to system defaults. This may result in incorrect DNS resolutions on MacOS.

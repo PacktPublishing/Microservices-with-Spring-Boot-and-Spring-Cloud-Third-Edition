@@ -1,9 +1,8 @@
-version: '2.1'
+version: '3'
 
 services:
   product:
     image: hands-on/native-product-service
-    mem_limit: 512m
     environment:
       - SPRING_PROFILES_ACTIVE=docker
       - SPRING_CONFIG_LOCATION=file:/config-repo/application.yml,file:/config-repo/product.yml
@@ -22,7 +21,6 @@ services:
 
   recommendation:
     image: hands-on/native-recommendation-service
-    mem_limit: 512m
     environment:
       - SPRING_PROFILES_ACTIVE=docker
       - SPRING_CONFIG_LOCATION=file:/config-repo/application.yml,file:/config-repo/recommendation.yml
@@ -41,7 +39,6 @@ services:
 
   review:
     image: hands-on/native-review-service
-    mem_limit: 512m
     environment:
       - SPRING_PROFILES_ACTIVE=docker
       - SPRING_CONFIG_LOCATION=file:/config-repo/application.yml,file:/config-repo/review.yml
@@ -59,7 +56,6 @@ services:
 
   product-composite:
     image: hands-on/native-product-composite-service
-    mem_limit: 512m
     environment:
       - SPRING_PROFILES_ACTIVE=docker
       - SPRING_CONFIG_LOCATION=file:/config-repo/application.yml,file:/config-repo/product-composite.yml
@@ -74,9 +70,8 @@ services:
         condition: service_healthy
 
   mongodb:
-    image: mongo:6.0.4
+    image: mongo:6
     restart: always
-    mem_limit: 512m
     ports:
       - "27017:27017"
     command: mongod
@@ -90,9 +85,8 @@ services:
       retries: 60
 
   mysql:
-    image: mysql:8.0.32
+    image: mysql:8
     restart: always
-    mem_limit: 512m
     ports:
       - "3306:3306"
     command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
@@ -108,12 +102,11 @@ services:
       retries: 60
 
   rabbitmq:
-    image: rabbitmq:3.11.8-management
+    image: rabbitmq:3.13.0-management
     restart: always
-    mem_limit: 512m
     ports:
-      - 5672:5672
-      - 15672:15672
+      - "5672:5672"
+      - "15672:15672"
     environment:
       - RABBITMQ_DEFAULT_USER=${RABBITMQ_USR}
       - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PWD}
@@ -126,7 +119,6 @@ services:
   gateway:
     build: spring-cloud/gateway
     image: hands-on/gateway
-    mem_limit: 512m
     environment:
       - SPRING_PROFILES_ACTIVE=docker
       - SPRING_CONFIG_LOCATION=file:/config-repo/application.yml,file:/config-repo/gateway.yml
@@ -144,7 +136,6 @@ services:
   auth-server:
     build: spring-cloud/authorization-server
     image: hands-on/auth-server
-    mem_limit: 512m
     environment:
       - SPRING_PROFILES_ACTIVE=docker
       - SPRING_CONFIG_LOCATION=file:/config-repo/application.yml,file:/config-repo/auth-server.yml
@@ -161,7 +152,6 @@ services:
   jaeger-collector.istio-system:
     image: openzipkin/zipkin:2.24.0
     restart: always
-    mem_limit: 1024m
     environment:
       - STORAGE_TYPE=mem
     ports:

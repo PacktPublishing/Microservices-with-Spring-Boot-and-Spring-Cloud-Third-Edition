@@ -1,9 +1,8 @@
-version: '2.1'
+version: '3'
 
 services:
   product:
     build: microservices/product-service
-    mem_limit: 512m
     environment:
       - SPRING_PROFILES_ACTIVE=docker,streaming_partitioned,streaming_instance_0,kafka
     depends_on:
@@ -14,7 +13,6 @@ services:
 
   product-p1:
     build: microservices/product-service
-    mem_limit: 512m
     environment:
       - SPRING_PROFILES_ACTIVE=docker,streaming_partitioned,streaming_instance_1,kafka
     depends_on:
@@ -25,7 +23,6 @@ services:
 
   recommendation:
     build: microservices/recommendation-service
-    mem_limit: 512m
     environment:
       - SPRING_PROFILES_ACTIVE=docker,streaming_partitioned,streaming_instance_0,kafka
     depends_on:
@@ -36,7 +33,6 @@ services:
 
   recommendation-p1:
     build: microservices/recommendation-service
-    mem_limit: 512m
     environment:
       - SPRING_PROFILES_ACTIVE=docker,streaming_partitioned,streaming_instance_1,kafka
     depends_on:
@@ -47,7 +43,6 @@ services:
 
   review:
     build: microservices/review-service
-    mem_limit: 512m
     environment:
       - SPRING_PROFILES_ACTIVE=docker,streaming_partitioned,streaming_instance_0,kafka
     depends_on:
@@ -58,7 +53,6 @@ services:
 
   review-p1:
     build: microservices/review-service
-    mem_limit: 512m
     environment:
       - SPRING_PROFILES_ACTIVE=docker,streaming_partitioned,streaming_instance_1,kafka
     depends_on:
@@ -69,7 +63,6 @@ services:
 
   product-composite:
     build: microservices/product-composite-service
-    mem_limit: 512m
     environment:
       - SPRING_PROFILES_ACTIVE=docker,streaming_partitioned,kafka
     depends_on:
@@ -79,8 +72,7 @@ services:
         condition: service_healthy
 
   mongodb:
-    image: mongo:6.0.4
-    mem_limit: 512m
+    image: mongo:6
     ports:
       - "27017:27017"
     command: mongod
@@ -91,8 +83,7 @@ services:
       retries: 60
 
   mysql:
-    image: mysql:8.0.32
-    mem_limit: 512m
+    image: mysql:8
     ports:
       - "3306:3306"
     environment:
@@ -107,9 +98,8 @@ services:
       retries: 60
 
   kafka:
-    image: confluentinc/cp-kafka:7.3.1
+    image: confluentinc/cp-kafka:7.6.0
     restart: always
-    mem_limit: 1024m
     ports:
       - "9092:9092"
     environment:
@@ -121,9 +111,8 @@ services:
       - zookeeper
 
   zookeeper:
-    image: confluentinc/cp-zookeeper:7.3.1
+    image: confluentinc/cp-zookeeper:7.6.0
     restart: always
-    mem_limit: 512m
     ports:
       - "2181:2181"
     environment:
@@ -131,13 +120,11 @@ services:
 
   eureka:
     build: spring-cloud/eureka-server
-    mem_limit: 512m
 
   gateway:
     environment:
       - SPRING_PROFILES_ACTIVE=docker
     build: spring-cloud/gateway
-    mem_limit: 512m
     ports:
       - "8443:8443"
     depends_on:
@@ -148,7 +135,6 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=docker
     build: spring-cloud/authorization-server
-    mem_limit: 512m
     healthcheck:
       test: ["CMD", "curl", "-fs", "http://localhost:9999/actuator/health"]
       interval: 5s

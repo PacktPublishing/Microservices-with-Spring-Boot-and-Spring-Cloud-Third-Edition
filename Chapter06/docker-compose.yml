@@ -1,9 +1,9 @@
-version: '2.1'
+version: '3'
 
 services:
   product:
     build: microservices/product-service
-    mem_limit: 512m
+
     environment:
       - SPRING_PROFILES_ACTIVE=docker
     depends_on:
@@ -12,7 +12,6 @@ services:
 
   recommendation:
     build: microservices/recommendation-service
-    mem_limit: 512m
     environment:
       - SPRING_PROFILES_ACTIVE=docker
     depends_on:
@@ -21,7 +20,6 @@ services:
 
   review:
     build: microservices/review-service
-    mem_limit: 512m
     environment:
       - SPRING_PROFILES_ACTIVE=docker
     depends_on:
@@ -30,15 +28,13 @@ services:
 
   product-composite:
     build: microservices/product-composite-service
-    mem_limit: 512m
     ports:
       - "8080:8080"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
 
   mongodb:
-    image: mongo:6.0.4
-    mem_limit: 512m
+    image: mongo:6
     ports:
       - "27017:27017"
     command: mongod
@@ -49,8 +45,7 @@ services:
       retries: 60
 
   mysql:
-    image: mysql:8.0.32
-    mem_limit: 512m
+    image: mysql:8
     ports:
       - "3306:3306"
     environment:

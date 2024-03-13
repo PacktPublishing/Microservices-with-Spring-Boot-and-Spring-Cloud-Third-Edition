@@ -11,7 +11,7 @@ public class TestApplicationConfiguration {
   @Bean
   @ServiceConnection
   MongoDBContainer mongoDBContainerContainer() {
-    return new MongoDBContainer("mongo:6.0.4").withReuse(true);
+    return new MongoDBContainer("mongo:6").withReuse(true);
   }
 
 }

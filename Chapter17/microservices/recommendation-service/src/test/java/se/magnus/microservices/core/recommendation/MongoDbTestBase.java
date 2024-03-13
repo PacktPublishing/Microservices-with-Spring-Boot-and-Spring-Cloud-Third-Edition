@@ -6,7 +6,7 @@ import org.testcontainers.containers.MongoDBContainer;
 public abstract class MongoDbTestBase {
 
   @ServiceConnection
-  private static MongoDBContainer database = new MongoDBContainer("mongo:6.0.4");
+  private static MongoDBContainer database = new MongoDBContainer("mongo:6");
 
   static {
     database.start();

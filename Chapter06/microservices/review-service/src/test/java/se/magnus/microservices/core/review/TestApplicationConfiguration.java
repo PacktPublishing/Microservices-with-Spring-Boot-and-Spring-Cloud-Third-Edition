@@ -12,7 +12,7 @@ public class TestApplicationConfiguration {
   @Bean
   @ServiceConnection
   JdbcDatabaseContainer mongoDBContainerContainer() {
-    return (JdbcDatabaseContainer)new MySQLContainer("mysql:8.0.32").withStartupTimeoutSeconds(300).withReuse(true);
+    return (JdbcDatabaseContainer)new MySQLContainer("mysql:8").withStartupTimeoutSeconds(300).withReuse(true);
   }
 
 }

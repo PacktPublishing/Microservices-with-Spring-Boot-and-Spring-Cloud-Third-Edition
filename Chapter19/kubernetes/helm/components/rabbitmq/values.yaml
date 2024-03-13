@@ -6,7 +6,7 @@ annotations:
 image:
   repository: registry.hub.docker.com/library
   name: rabbitmq
-  tag: 3.11.8-management
+  tag: 3.13.0-management
   pullPolicy: IfNotPresent
 
 ports:
