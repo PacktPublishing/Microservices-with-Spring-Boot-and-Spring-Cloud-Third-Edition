@@ -3,7 +3,7 @@ plugins {
     id 'java'
 }
 
-group = 'se.magnus.microservices.api'
+group = 'se.magnus.api'
 version = '1.0.0-SNAPSHOT'
 sourceCompatibility = '17'
 
