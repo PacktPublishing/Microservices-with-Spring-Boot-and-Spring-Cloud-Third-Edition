@@ -4,9 +4,9 @@ mkdir microservices
 cd microservices
 
 spring init \
---boot-version=3.1.4 \
+--boot-version=3.2.3 \
 --type=gradle-project \
---java-version=17 \
+--java-version=21 \
 --packaging=jar \
 --name=product-service \
 --package-name=se.magnus.microservices.core.product \
@@ -16,9 +16,9 @@ spring init \
 product-service
 
 spring init \
---boot-version=3.1.4 \
+--boot-version=3.2.3 \
 --type=gradle-project \
---java-version=17 \
+--java-version=21 \
 --packaging=jar \
 --name=review-service \
 --package-name=se.magnus.microservices.core.review \
@@ -28,9 +28,9 @@ spring init \
 review-service
 
 spring init \
---boot-version=3.1.4 \
+--boot-version=3.2.3 \
 --type=gradle-project \
---java-version=17 \
+--java-version=21 \
 --packaging=jar \
 --name=recommendation-service \
 --package-name=se.magnus.microservices.core.recommendation \
@@ -40,9 +40,9 @@ spring init \
 recommendation-service
 
 spring init \
---boot-version=3.1.4 \
+--boot-version=3.2.3 \
 --type=gradle-project \
---java-version=17 \
+--java-version=21 \
 --packaging=jar \
 --name=product-composite-service \
 --package-name=se.magnus.microservices.composite.product \
