@@ -58,7 +58,7 @@ If you want to try out the source code of this book with newer versions of Sprin
 
   Should be: *Change the service implementation so it calls the **core** services’ APIs in parallel and in a non-blocking way*  
 
-* **Page 603**, chapter 21, *Installation Instructions for macOS*, section *Post-installation actions*.
+* **Page 603**, Chapter 21, *Installation Instructions for macOS*, section *Post-installation actions*.
 
   The following post-installation instruction is missing:
 
@@ -77,6 +77,14 @@ If you want to try out the source code of this book with newer versions of Sprin
   For more information, see: 
   1. <https://docs.docker.com/desktop/settings/mac/#advanced-1>
   2. <https://docs.docker.com/desktop/mac/permission-requirements/#installing-symlinks>
+
+* **Page 611**, section *Installing WSL 2 together with a default Ubuntu server*.
+
+  The install command for WSL 2 is incorrect, missing a hyphen; it should be:
+
+  ```
+  wsl --install
+  ```
 
 ## Outline and Chapter Summary
 This book is about building production-ready microservices using Spring Boot 3 and Spring Cloud. This book primarily covers Spring Boot, Spring Cloud, Docker, Kubernetes, Istio, the EFK stack, Prometheus, and Grafana. Each of these open source tools works great by itself, but it can be challenging to understand how to use them together in an advantageous way. In some areas, they complement each other, but in other areas they overlap, and it is not obvious which one to choose for a particular situation.
