@@ -13,7 +13,7 @@ Start with Docker Compose to run microservices with databases and messaging serv
 By the end, you'll build scalable microservices using Spring Boot and Spring Cloud.
 
 ## Key Takeaways
--	Build reactive microservices using Spring Boot
+- Build reactive microservices using Spring Boot
 - Develop resilient and scalable microservices using Spring Cloud
 - Use OAuth 2.1/OIDC and Spring Security to protect public APIs
 - Implement Docker to bridge the gap between development, testing, and production
@@ -28,6 +28,7 @@ By the end, you'll build scalable microservices using Spring Boot and Spring Clo
 If you want to try out the source code of this book with newer versions of Spring, Java, Kubernetes, and Istio than used in the book, you can take a look at the following blog posts:
 
 1. [Upgrade to Spring Boot 3.1](https://callistaenterprise.se/blogg/teknik/2023/10/18/microservices-upgrade-to-SpringBoot31/) (published 10 October 2023)
+1. [Upgrade to Spring Boot 3.2 and Java 21](https://callistaenterprise.se/blogg/teknik/2024/06/03/microservices-upgrade-to-SpringBoot32/) (published 3 June 2024)
 
 ## Errata
 
