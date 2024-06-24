@@ -25,3 +25,30 @@ server.port: 8080
 
 spring.datasource:
   url: jdbc:mysql://mysql/review-db
+
+---
+spring.config.activate.on-profile: create-ddl-script
+
+spring.jpa.properties.jakarta.persistence.schema-generation:
+  create-source: metadata
+  scripts:
+    action: create
+    create-target: crac/sql-scripts/create-tables.sql
+
+---
+spring.config.activate.on-profile: crac
+
+# CRaC support, see https://github.com/spring-projects/spring-lifecycle-smoke-tests/blob/main/data/data-jpa/README.adoc
+# Lifecycle configuration guidance
+# Specify explicitly the dialect (here for MySQL, adapt for your database)
+spring.jpa.database-platform: org.hibernate.dialect.MySQLDialect
+
+# Disable Hibernate usage of JDBC metadata
+spring.jpa.properties.hibernate.temp.use_jdbc_metadata_defaults: false
+
+# Database initialization will typically be performed outside of Spring lifecycle
+spring.jpa.hibernate.ddl-auto: none
+spring.sql.init.mode: never
+
+# In order to allow checkpoint/restore to work as expected, Hikari pool suspension should be enabled.
+spring.datasource.hikari.allow-pool-suspension: true

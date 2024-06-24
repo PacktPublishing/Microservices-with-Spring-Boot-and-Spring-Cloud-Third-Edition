@@ -1,5 +1,8 @@
 package se.magnus.microservices.core.recommendation;
 
+import org.crac.Context;
+import org.crac.Core;
+import org.crac.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +23,7 @@ import se.magnus.microservices.core.recommendation.persistence.RecommendationEnt
 
 @SpringBootApplication
 @ComponentScan("se.magnus")
-public class RecommendationServiceApplication {
+public class RecommendationServiceApplication implements Resource {
 
   private static final Logger LOG = LoggerFactory.getLogger(RecommendationServiceApplication.class);
 
@@ -44,4 +47,17 @@ public class RecommendationServiceApplication {
     IndexOperations indexOps = mongoTemplate.indexOps(RecommendationEntity.class);
     resolver.resolveIndexFor(RecommendationEntity.class).forEach(e -> indexOps.ensureIndex(e));
   }
-}
+
+  public RecommendationServiceApplication() {
+    Core.getGlobalContext().register(this);
+  }
+
+  @Override
+  public void beforeCheckpoint(Context<? extends Resource> context) {
+    LOG.info("CRaC's beforeCheckpoint callback method called...");
+  }
+
+  @Override
+  public void afterRestore(Context<? extends Resource> context) {
+    LOG.info("CRaC's afterRestore callback method called...");
+  }}

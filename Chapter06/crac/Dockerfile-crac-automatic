@@ -1,0 +1,12 @@
+# syntax=docker/dockerfile:1.3-labs
+# The above syntax directive is required to get support for "RUN --security=insecure"
+
+FROM azul/zulu-openjdk:21-jdk-crac
+
+ADD build/libs/*.jar app.jar
+
+# The docker and crac profiles are both required. However, the crac profile is only required for the review service.
+RUN --security=insecure SPRING_PROFILES_ACTIVE=docker,crac java -Dspring.context.checkpoint=onRefresh -XX:CRaCCheckpointTo=checkpoint -jar app.jar || if [ $? -eq 137 ]; then return 0; else return 1; fi
+
+EXPOSE 8080
+ENTRYPOINT ["java", "-XX:CRaCRestoreFrom=checkpoint"]

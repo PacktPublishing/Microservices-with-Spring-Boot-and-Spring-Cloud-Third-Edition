@@ -1,0 +1,67 @@
+version: '2.1'
+
+services:
+  product:
+    image: product-crac
+    cap_add:
+      - CHECKPOINT_RESTORE
+    mem_limit: 512m
+    depends_on:
+      mongodb:
+        condition: service_healthy
+
+  recommendation:
+    image: recommendation-crac
+    cap_add:
+      - CHECKPOINT_RESTORE
+    mem_limit: 512m
+    depends_on:
+      mongodb:
+        condition: service_healthy
+
+  review:
+    image: review-crac
+    cap_add:
+      - CHECKPOINT_RESTORE
+    mem_limit: 512m
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  product-composite:
+    image: product-composite-crac
+    cap_add:
+      - CHECKPOINT_RESTORE
+    mem_limit: 512m
+    ports:
+      - "8080:8080"
+
+  mongodb:
+    image: mongo:6.0.4
+    mem_limit: 512m
+    ports:
+      - "27017:27017"
+    command: mongod
+    healthcheck:
+      test: "mongostat -n 1"
+      interval: 5s
+      timeout: 2s
+      retries: 60
+
+  mysql:
+    image: mysql:8.0.32
+    mem_limit: 512m
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpwd
+      - MYSQL_DATABASE=review-db
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=pwd
+    healthcheck:
+      test: "/usr/bin/mysql --user=user --password=pwd --execute \"SHOW DATABASES;\""
+      interval: 5s
+      timeout: 2s
+      retries: 60
+    volumes:
+      - "./sql-scripts/create-tables.sql:/docker-entrypoint-initdb.d/create-tables.sql"

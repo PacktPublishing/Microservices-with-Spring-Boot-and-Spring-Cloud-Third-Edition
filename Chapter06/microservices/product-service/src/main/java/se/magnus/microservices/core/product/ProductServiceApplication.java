@@ -1,5 +1,8 @@
 package se.magnus.microservices.core.product;
 
+import org.crac.Context;
+import org.crac.Core;
+import org.crac.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +23,7 @@ import se.magnus.microservices.core.product.persistence.ProductEntity;
 
 @SpringBootApplication
 @ComponentScan("se.magnus")
-public class ProductServiceApplication {
+public class ProductServiceApplication implements Resource {
 
   private static final Logger LOG = LoggerFactory.getLogger(ProductServiceApplication.class);
 
@@ -43,5 +46,19 @@ public class ProductServiceApplication {
 
     IndexOperations indexOps = mongoTemplate.indexOps(ProductEntity.class);
     resolver.resolveIndexFor(ProductEntity.class).forEach(e -> indexOps.ensureIndex(e));
+  }
+
+  public ProductServiceApplication() {
+    Core.getGlobalContext().register(this);
+  }
+
+  @Override
+  public void beforeCheckpoint(Context<? extends Resource> context) {
+    LOG.info("CRaC's beforeCheckpoint callback method called...");
+  }
+
+  @Override
+  public void afterRestore(Context<? extends Resource> context) {
+    LOG.info("CRaC's afterRestore callback method called...");
   }
 }
