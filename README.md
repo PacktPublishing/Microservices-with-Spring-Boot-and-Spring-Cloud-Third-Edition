@@ -29,6 +29,7 @@ If you want to try out the source code of this book with newer versions of Sprin
 
 1. [Upgrade to Spring Boot 3.1](https://callistaenterprise.se/blogg/teknik/2023/10/18/microservices-upgrade-to-SpringBoot31/) (published 10 October 2023)
 1. [Upgrade to Spring Boot 3.2 and Java 21](https://callistaenterprise.se/blogg/teknik/2024/06/03/microservices-upgrade-to-SpringBoot32/) (published 3 June 2024)
+1. [Faster startup with Spring Boot 3.2 and CRaC, part 1 - Automatic checkpoint](https://callistaenterprise.se/blogg/teknik/2024/07/01/SpringBoot-with-CRaC-part1-automatic-checkpoint/) (published 1 July 2024)
 
 ## Errata
 
