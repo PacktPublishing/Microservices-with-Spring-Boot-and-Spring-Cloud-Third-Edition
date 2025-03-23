@@ -78,7 +78,6 @@ public class ProductCompositeServiceApplication {
     return Schedulers.newBoundedElastic(threadPoolSize, taskQueueSize, "publish-pool");
   }
 
-
   @Bean
   @LoadBalanced
   public WebClient.Builder loadBalancedWebClientBuilder() {
